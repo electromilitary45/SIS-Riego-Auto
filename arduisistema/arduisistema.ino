@@ -1,9 +1,5 @@
  
 /*
----------PINES LCD-----------
-PINES UTILIZADOS 
-04(SDA), A5(SLC)
-
 Otras configuraciones para LCD
 (0x3f,16,2) || (0x27,16,2)  ||(0x20,16,2)
 --Palabras Reservadas--
@@ -11,23 +7,23 @@ lcd.print("");
 lcd.setCursor(0,0);
 lcd.display();
 lcd.noDisplay();
-
 ---
-
 */
 
-
-//------------DECLARACION VVARIABLES
+//-------------------------------------------------------------------------------------------------------------------
+//---LIBRERIA LCD---
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27,16,2);
 
-//---Sensor Humedad
+//
+
+//---PINES Sensor Humedad--
 int valor_sensorHumedad;
 int pin_sensorHumedad=A0;
 
-//---Bomba Agua
+//---Bomba Agua--
 
-//---LEDS--
+//---PINES LEDS--
 int ledVerde = 13;
 int ledAma =12;
 int ledRojo =11;
@@ -63,9 +59,15 @@ void loop() {
   valor_sensorHumedad=map(analogRead(pin_sensorHumedad),0,1023,200,0);
 
   if(valor_sensorHumedad < 10){
-    digitalWrite(ledRojo, HIGH);
+    /*
+    Se prenden todos los leds para decir que el modulo esta fuera de Tierra
+    */
+    digitalWrite(ledRojo, HIGH); 
     digitalWrite(ledAma, HIGH);
     digitalWrite(ledVerde, HIGH);
+    /*
+    Se avisa por pantalla que el sensor esta fuera de tierra
+    */
     lcd.setCursor(0,0);
     lcd.print("Sensor Desconectado");
     lcd.setCursor(0,1);
