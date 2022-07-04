@@ -63,6 +63,9 @@ void loop() {
   valor_sensorHumedad=map(analogRead(pin_sensorHumedad),0,1023,200,0);
 
   if(valor_sensorHumedad < 10){
+    digitalWrite(ledRojo, HIGH);
+    digitalWrite(ledAma, HIGH);
+    digitalWrite(ledVerde, HIGH);
     lcd.setCursor(0,0);
     lcd.print("Sensor Desconectado");
     lcd.setCursor(0,1);
@@ -70,14 +73,46 @@ void loop() {
     lcd.print("%");
     delay(500);
     lcd.clear();
-  }else{
-    digitalWrite(ledRojo, HIGH);
-
-    lcd.setCursor(0, 0);
+    
+  }else if(valor_sensorHumedad >10 && valor_sensorHumedad <40){
+    
+    digitalWrite(ledRojo, LOW);
+    digitalWrite(ledAma, LOW);
+    digitalWrite(ledVerde, HIGH);
+    lcd.setCursor(0,0);
+    lcd.print("TIERRA MUY SECA");
+    lcd.setCursor(0,1);
     lcd.print(valor_sensorHumedad);
     lcd.print("%");
     delay(500);
     lcd.clear();
+    /*
+    lcd.setCursor(0, 0);
+    lcd.print(valor_sensorHumedad);
+    lcd.print("%");
+    delay(500);
+    lcd.clear();*/
+  }else if(valor_sensorHumedad >40 && valor_sensorHumedad <85){
+    digitalWrite(ledRojo, LOW);
+    digitalWrite(ledAma, HIGH);
+    digitalWrite(ledVerde, LOW);
+    lcd.setCursor(0,0);
+    lcd.print("TIERRA HUMEDA");
+    lcd.setCursor(0,1);
+    lcd.print(valor_sensorHumedad);
+    lcd.print("%");
+    delay(500);
+    lcd.clear();
+  }else if(valor_sensorHumedad >85 && valor_sensorHumedad <=100){
+    digitalWrite(ledRojo, HIGH);
+    digitalWrite(ledAma, LOW);
+    digitalWrite(ledVerde, LOW);
+    lcd.setCursor(0,0);
+    lcd.print("EXCESO DE AGUA");
+    lcd.setCursor(0,1);
+    lcd.print(valor_sensorHumedad);
+    lcd.print("%");
+    delay(500);
   }
   
   
@@ -86,4 +121,4 @@ void loop() {
   
   //delay(500);
   
-}
+}//fin void
