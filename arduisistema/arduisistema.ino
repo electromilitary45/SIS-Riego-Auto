@@ -51,7 +51,7 @@ void setup() {
   dht.begin();
 
 
-  //---configuracion PINES LED---
+  //---SETUP PINES LED---
   pinMode(ledRojo, OUTPUT);
   pinMode(ledVerde, OUTPUT);
   pinMode(ledAma, OUTPUT);
