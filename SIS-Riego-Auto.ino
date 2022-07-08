@@ -71,7 +71,7 @@ void loop() {
 
 
   if(valor_sensorHumedad < 10){
-    //Se desactiva la bomba para que riegue
+    //Se desactiva la bomba para que no riegue
     digitalWrite(pin_bombaAgua, LOW);
     
     //Se prenden todos los leds para decir que el modulo esta fuera de Tierra
