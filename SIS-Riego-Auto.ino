@@ -1,13 +1,3 @@
-/*
-Otras configuraciones para LCD
-(0x3f,16,2) || (0x27,16,2)  ||(0x20,16,2)
---Palabras Reservadas--
-lcd.print("");
-lcd.setCursor(0,0);
-lcd.display();
-lcd.noDisplay();
----
-*/
 
 //-------------------------------------------------------------------------------------------------------------------
 //---LIBRERIA LCD---
@@ -49,7 +39,7 @@ void setup() {
   
   //configuracion SENSOR HUMEDAD SUELO
   
-  //--Ini SENSOR DHT11
+  //--Ini SENSOR DHT11 Sensor humedad temp ambiente
   dht.begin();
 
 
@@ -58,15 +48,16 @@ void setup() {
   pinMode(ledVerde, OUTPUT);
   pinMode(ledAma, OUTPUT);
 
-  //--Setup
+  //--Setup de rele
   pinMode(pin_bombaAgua, OUTPUT);
 }
 
 void loop() {
  
-  //----CAPTURA DATOS SENSORES---
+  //----CAPTURA DATOS SENSOR Humedad tierra---
   valor_sensorHumedad=map(analogRead(pin_sensorHumedad),0,1023,200,0); //datos SENSOR HUMEDAD TIERRA
-  humedadDh = dht.readHumidity();
+  //---ambiente
+  humedadDh = dht.readHumidity(); 
   tempDh = dht.readTemperature();
 
 
@@ -92,7 +83,7 @@ void loop() {
     Se agregan los valores de Temperatura y humedad del DHT11
     */
     lcd.setCursor(0,1);
-    lcd.print("temp:");
+    lcd.print("Temp:");
     lcd.print(tempDh);
     lcd.print(" Humd:");
     lcd.print(humedadDh);
@@ -103,14 +94,14 @@ void loop() {
     delay(500);
     lcd.clear();
     
-  }else if(valor_sensorHumedad >10 && valor_sensorHumedad <70){
+  }else if(valor_sensorHumedad >10 && valor_sensorHumedad <60){ //tierra seca
     
     //Se activa la bomba para que riegue
     
     digitalWrite(pin_bombaAgua, HIGH);
 
      /*
-    Se prenden todos los leds para decir que la tierra esta seca
+    Se prende led verde para decir que la tierra esta seca
     */
     
     digitalWrite(ledRojo, LOW);
@@ -128,7 +119,7 @@ void loop() {
     Se agregan los valores de Temperatura y humedad del DHT11
     */
     lcd.setCursor(0,1);
-    lcd.print("temp:");
+    lcd.print("Temp:");
     lcd.print(tempDh);
     lcd.print(" Humd:");
     lcd.print(humedadDh);
@@ -138,7 +129,7 @@ void loop() {
     delay(500);
     lcd.clear();
     
-  }else if(valor_sensorHumedad >70 && valor_sensorHumedad <85){
+  }else if(valor_sensorHumedad >60 && valor_sensorHumedad <85){
     /*
     Se prende el amarrillo decir que la tierra esta Humeda
     */
@@ -149,14 +140,14 @@ void loop() {
     Se muestra por pantalla los datos del sensor de tierra
     */
     lcd.setCursor(0,0);
-    lcd.print("Tierra hum: ");
+    lcd.print("Tierra Hum: ");
     lcd.print(valor_sensorHumedad);
     lcd.print("%");
     /*
     Se agregan los valores de Temperatura y humedad del DHT11
     */
     lcd.setCursor(0,1);
-    lcd.print("temp:");
+    lcd.print("Temp:");
     lcd.print(tempDh);
     lcd.print(" Humd:");
     lcd.print(humedadDh);
@@ -191,7 +182,7 @@ void loop() {
     */
     lcd.setCursor(0,1);
     lcd.setCursor(0,1);
-    lcd.print("temp:");
+    lcd.print("Temp:");
     lcd.print(tempDh);
     lcd.print(" Humd:");
     lcd.print(humedadDh);
@@ -202,5 +193,5 @@ void loop() {
     delay(500);
     lcd.clear();
   }
-  
+
 }//fin void
