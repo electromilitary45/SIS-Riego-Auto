@@ -3,8 +3,6 @@
 <h3>Profesor: Marco Caridad</3>
 
 <h3>Proyecto Cuatrimestre #2 2022 🧿</h3>
-<h3>Estudiante: </h3>
-<li>🐶 Derek Sebastian Leiva Villalobos</li>
 
 
 
